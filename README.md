@@ -1,7 +1,7 @@
 # SD_AV3
 Trabalho de Sistemas Distribuidos e Programacao Paralela
 
-# dicas
+# Dicas
 1)Tabela de palavras e símbolos reservados (vai estar gravadas)
 
 Sempre que colocar caracteres verificar se sequencia de caracteres estão nas palavras e símbolos reservados
