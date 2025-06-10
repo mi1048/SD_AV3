@@ -41,7 +41,6 @@ API voltada para gerenciamento usuários, clientes e servidores com perguntas de
 # Instalação
 
 1. Clone o repositório:
-```bash
 git clone [URL_DO_REPOSITORIO]
 cd nome-do-repositorio
 
