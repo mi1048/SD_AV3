@@ -23,6 +23,10 @@ recorte. Nesse caso, apenas defina e descreva no canvas, de forma
 clara, o recorte no qual a equipe vai atuar.
 
 
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------
+(TUDO ABAIXO É UM RASCUNHO)
+
 # Sistemas de Jogos API
 
 API voltada para gerenciamento usuários, clientes e servidores com perguntas de conteúdos exclusivos, juntamente com o MongoDB.
@@ -33,8 +37,7 @@ API voltada para gerenciamento usuários, clientes e servidores com perguntas de
 - MongoDB instalado localmente
 - Pip (gerenciador de pacotes Python)
 
---------------------------------------------------------------------------------------------------------------------------------------------------------------------
-(TUDO ABAIXO É UM RASCUNHO)
+
 # Instalação
 
 1. Clone o repositório:
