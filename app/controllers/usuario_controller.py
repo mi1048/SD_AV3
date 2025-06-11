@@ -4,14 +4,12 @@ from app.services.auth_service import AuthService
 rota = APIRouter()
 auth = AuthService()
 
-# Cria usuário (POST /api/usuarios/)
 @rota.post("/")
 async def criar_usuario(nome: str, senha: str):
     if auth.criar_usuario(nome, senha) is None:
         raise HTTPException(400, "Usuário já existe")
     return {"message": f"Usuário {nome} criado!"}
 
-# Login (POST /api/usuarios/login)
 @rota.post("/login")
 async def login(nome: str, senha: str):
     usuario = auth.login(nome, senha)
@@ -19,7 +17,6 @@ async def login(nome: str, senha: str):
         raise HTTPException(401, "Usuário ou senha inválidos")
     return {"message": "Login bem-sucedido"}
 
-# Logout (POST /api/usuarios/logout)
 @rota.post("/logout")
 async def logout(nome: str):
     auth.logout(nome)
