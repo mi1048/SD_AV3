@@ -4,8 +4,8 @@ from datetime import datetime
 
 class Usuario(BaseModel):
     nome: str
-    senha: str  # Obs: Em produção, use bcrypt!
-    pontuacao: int = 0
+    senha: str  
+    pontuacao: int = 0  # Já estava aqui, apenas confirmando
     conectado: bool = False
     ultimo_login: datetime = None
     ultimo_logout: datetime = None
