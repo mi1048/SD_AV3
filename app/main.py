@@ -1,10 +1,11 @@
 from fastapi import FastAPI
 from app.controllers.usuario_controller import rota as usuario_router
+from app.controllers.servidor_controller import rota as servidor_router
 
 app = FastAPI()
 
-# Prefixo "/api/usuarios" para todas as rotas de usuário
 app.include_router(usuario_router, prefix="/api/usuarios")
+app.include_router(servidor_router, prefix="/api/servidores")
 
 @app.get("/")
 async def root():
