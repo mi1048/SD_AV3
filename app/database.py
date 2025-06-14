@@ -17,3 +17,5 @@ except ConnectionFailure as e: #e = erro
 
 # Acessa o banco de dados "sistema_jogos" (cria se não existir)
 bd = cliente_mongo["sistema_jogos"]  
+
+print(bd.list_collection_names()) # Lista as coleções no banco de dados
