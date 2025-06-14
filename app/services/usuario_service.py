@@ -1,23 +1,29 @@
 from app.models.usuario import Usuario
 
+
+def serializar_mongo(doc):
+    if not doc:
+        return doc
+    doc = dict(doc)
+    doc["_id"] = str(doc["_id"])
+    return doc
+
+
 class ServicoUsuario:
-    def criar_usuario(self, usuario: Usuario):
-        # Verifica se usuário já existe para evitar duplicidade
-        if self.obter_usuario(usuario.nome):
+    def criar_usuario(self, nome: str, senha: str):
+        if self.obter_usuario(nome):
             return None
-        # Insere um novo usuário na coleção
-        Usuario.colecao().insert_one(usuario.dict())
-        return usuario
+        usuario = Usuario(nome=nome, senha=senha)
+        Usuario.colecao().insert_one(usuario.model_dump())
+        return serializar_mongo(usuario.model_dump())
 
     def obter_usuario(self, nome_usuario: str):
-        # Busca o usuário pelo nome no banco
-        return Usuario.colecao().find_one({"nome": nome_usuario})
+        usuario = Usuario.colecao().find_one({"nome": nome_usuario})
+        return serializar_mongo(usuario) if usuario else None
 
     def atualizar_pontuacao(self, nome_usuario: str, pontuacao: int):
-        # Atualiza a pontuação do usuário
         Usuario.colecao().update_one(
             {"nome": nome_usuario},
             {"$set": {"pontuacao": pontuacao}}
         )
-        # Retorna o usuário atualizado
         return self.obter_usuario(nome_usuario)

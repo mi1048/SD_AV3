@@ -1,11 +1,18 @@
 from fastapi import FastAPI
-from app.controllers.usuario_controller import rota as usuario_router
-from app.controllers.servidor_controller import rota as servidor_router
+from app.controllers import (
+    usuario_controller,
+    servidor_controller,
+    pergunta_controller,
+    resposta_controller
+)
 
 app = FastAPI()
 
-app.include_router(usuario_router, prefix="/api/usuarios")
-app.include_router(servidor_router, prefix="/api/servidores")
+app.include_router(usuario_controller.rota, prefix="/api/usuarios")
+app.include_router(servidor_controller.rota, prefix="/api/servidores")
+app.include_router(pergunta_controller.rota, prefix="/api/perguntas")
+app.include_router(resposta_controller.rota, prefix="/api/respostas")
+
 
 @app.get("/")
 async def root():
