@@ -12,6 +12,7 @@
 - [Exemplos de Uso da API](#exemplos-de-uso-da-api)
 - [Dicas](#dicas)
 - [Ferramentas Utilizadas](#ferramentas-utilizadas)
+- [Imagem no DockerHub](#imagem-no-dockerhub)
 
 ---
 
@@ -194,3 +195,5 @@ docker-compose.yml         # Orquestração dos serviços (FastAPI + MongoDB)
 - **Docker Desktop**: Ambiente Docker local para Windows/Mac.
 - **MongoDB Compass**: Interface gráfica para visualizar e manipular dados do MongoDB.
 - **Python 3.11+**: Linguagem de programação principal do projeto.
+
+## Imagem no DockerHub
