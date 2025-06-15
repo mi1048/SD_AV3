@@ -12,6 +12,7 @@
 - [Exemplos de Uso da API](#exemplos-de-uso-da-api)
 - [Dicas](#dicas)
 - [Ferramentas Utilizadas](#ferramentas-utilizadas)
+- [Imagem no DockerHub](#imagem-no-dockerhub)
 
 ---
 
@@ -107,7 +108,7 @@ docker-compose.yml         # Orquestração dos serviços (FastAPI + MongoDB)
 2. **Suba os containers:**
 
    ```sh
-   docker-compose up --build
+   docker-compose up
    ```
 
 3. **Acesse a API:**
@@ -209,6 +210,6 @@ docker-compose.yml         # Orquestração dos serviços (FastAPI + MongoDB)
 - **MongoDB Compass**: Interface gráfica para visualizar e manipular dados do MongoDB.
 - **Python 3.11+**: Linguagem de programação principal do projeto.
 
-## Imagem DockerHub
+## Imagem no DockerHub
 
 ```docker pull test2313123/quizverse```
