@@ -1,7 +1,7 @@
 from fastapi import APIRouter, HTTPException
 from app.services.usuario_service import ServicoUsuario
 from app.services.servidor_service import ServicoServidor
-from app.models.pergunta import Pergunta
+from app.services.pergunta_service import ServicoPergunta  # NOVO IMPORT
 from bson import ObjectId, errors as bson_errors
 from pydantic import BaseModel
 from typing import Dict
@@ -28,24 +28,24 @@ async def responder_perguntas(payload: RespostaEnvio):
     pontuacao_atual = usuario.get("pontuacao", 0)
     acertos = 0
 
+    # Obtém o serviço de pergunta
+    servico_pergunta = ServicoPergunta()
+    
     for pergunta_id, resposta in respostas.items():
-        try:
-            obj_id = ObjectId(pergunta_id)
-        except bson_errors.InvalidId:
-            continue  # pula ids inválidos
-
-        pergunta = Pergunta.colecao().find_one({"_id": obj_id})
-        if pergunta and pergunta["resposta_correta"] == resposta:
+        # Busca a pergunta diretamente pelo serviço
+        pergunta = servico_pergunta.obter_pergunta_por_id(pergunta_id, servidor_id)
+        
+        if not pergunta:
+            continue  # Pula se não encontrar a pergunta
+            
+        # Verifica se a resposta está correta
+        if pergunta["resposta_correta"] == resposta:
             acertos += 1
 
     nova_pontuacao = pontuacao_atual + acertos
-    usuario_atualizado = ServicoUsuario().atualizar_pontuacao(
-        usuario_nome, nova_pontuacao)
-    print("Pontuação atualizada:", usuario_atualizado.get("pontuacao"))
+    ServicoUsuario().atualizar_pontuacao(usuario_nome, nova_pontuacao)
 
-    servidor = ServicoServidor().listar_servidores()
-    servidor_nome = next((s["nome"]
-                         for s in servidor if s["_id"] == servidor_id), None)
+    servidor_nome = ServicoServidor().obter_nome_servidor(servidor_id)
     return {
         "message": "Respostas processadas",
         "servidor_id": servidor_id,

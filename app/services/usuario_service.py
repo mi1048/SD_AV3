@@ -22,8 +22,9 @@ class ServicoUsuario:
         return serializar_mongo(usuario) if usuario else None
 
     def atualizar_pontuacao(self, nome_usuario: str, pontuacao: int):
-        Usuario.colecao().update_one(
+        # Atualização mais eficiente
+        result = Usuario.colecao().update_one(
             {"nome": nome_usuario},
             {"$set": {"pontuacao": pontuacao}}
         )
-        return self.obter_usuario(nome_usuario)
+        return result.modified_count > 0
