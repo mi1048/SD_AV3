@@ -1,4 +1,5 @@
 from app.models.usuario import Usuario
+from bson import ObjectId
 
 
 def serializar_mongo(doc):
@@ -14,17 +15,19 @@ class ServicoUsuario:
         if self.obter_usuario(nome):
             return None
         usuario = Usuario(nome=nome, senha=senha)
-        Usuario.colecao().insert_one(usuario.model_dump())
-        return serializar_mongo(usuario.model_dump())
+        result = Usuario.colecao().insert_one(usuario.model_dump())
+        if result.inserted_id:
+            return serializar_mongo(usuario.model_dump() | {"_id": result.inserted_id})
+        return None
 
     def obter_usuario(self, nome_usuario: str):
         usuario = Usuario.colecao().find_one({"nome": nome_usuario})
         return serializar_mongo(usuario) if usuario else None
 
     def atualizar_pontuacao(self, nome_usuario: str, pontuacao: int):
-        # Atualização mais eficiente
-        result = Usuario.colecao().update_one(
+        Usuario.colecao().update_one(
             {"nome": nome_usuario},
             {"$set": {"pontuacao": pontuacao}}
         )
-        return result.modified_count > 0
+        # Retorna o usuário atualizado
+        return self.obter_usuario(nome_usuario)

@@ -1,6 +1,6 @@
 from app.models.servidor import Servidor
-from datetime import datetime
-from bson import ObjectId  
+from bson import ObjectId
+
 
 def serializar_mongo(doc):
     if not doc:
@@ -16,12 +16,18 @@ class ServicoServidor:
             return None  # Servidor já existe
         servidor = Servidor(nome=nome)
         Servidor.colecao().insert_one(servidor.model_dump())
-        return servidor
-
+        return serializar_mongo(servidor.model_dump() | {"_id": servidor.id})
+    
     def listar_servidores(self):
-        # Serializa cada documento para evitar erro com ObjectId
         return [serializar_mongo(s) for s in Servidor.colecao().find({})]
-
+    
     def obter_nome_servidor(self, servidor_id: str):
-        servidor = Servidor.colecao().find_one({"_id": ObjectId(servidor_id)})
-        return servidor["nome"] if servidor else None
+        try:
+            if not ObjectId.is_valid(servidor_id):
+                return None
+                
+            obj_id = ObjectId(servidor_id)
+            servidor = Servidor.colecao().find_one({"_id": obj_id})
+            return servidor["nome"] if servidor else None
+        except:
+            return None

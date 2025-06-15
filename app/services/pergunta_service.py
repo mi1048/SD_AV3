@@ -1,5 +1,4 @@
 from app.models.pergunta import Pergunta
-from app.models.servidor import Servidor
 from bson import ObjectId
 
 
@@ -22,32 +21,20 @@ class ServicoPergunta:
 
     def listar_perguntas_por_servidor(self, servidor_id: str):
         perguntas = Pergunta.colecao().find({"servidor_id": servidor_id})
-        servidor = Servidor.colecao().find_one({"_id": ObjectId(servidor_id)})
-        servidor_nome = servidor["nome"] if servidor else "Servidor Desconhecido"
-        
-        return [{
-            **Pergunta.serializar_mongo(p),
-            "servidor_nome": servidor_nome  # Adiciona o nome sem alterar a estrutura original
-        } for p in perguntas]
-
+        return [Pergunta.serializar_mongo(p) for p in perguntas]
+    
     def obter_pergunta_por_id(self, pergunta_id: str, servidor_id: str):
         try:
+            # Validação robusta do ID
+            if not ObjectId.is_valid(pergunta_id):
+                return None
+                
             obj_id = ObjectId(pergunta_id)
+            pergunta = Pergunta.colecao().find_one({
+                "_id": obj_id,
+                "servidor_id": servidor_id
+            })
+            
+            return Pergunta.serializar_mongo(pergunta) if pergunta else None
         except:
             return None
-        
-        pergunta = Pergunta.colecao().find_one({
-            "_id": obj_id,
-            "servidor_id": servidor_id
-        })
-        
-        if not pergunta:
-            return None
-            
-        servidor = Servidor.colecao().find_one({"_id": ObjectId(servidor_id)})
-        servidor_nome = servidor["nome"] if servidor else "Servidor Desconhecido"
-        
-        return {
-            **Pergunta.serializar_mongo(pergunta),
-            "servidor_nome": servidor_nome  # Adiciona o nome dinamicamente
-        }
