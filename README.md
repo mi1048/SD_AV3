@@ -198,4 +198,4 @@ docker-compose.yml         # Orquestração dos serviços (FastAPI + MongoDB)
 
 ## Imagem no DockerHub
 
-docker build test2313123/quizverse
+```docker build test2313123/quizverse```
