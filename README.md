@@ -12,11 +12,10 @@
 - [Exemplos de Uso da API](#exemplos-de-uso-da-api)
 - [Dicas](#dicas)
 - [Ferramentas Utilizadas](#ferramentas-utilizadas)
-- [Imagem no DockerHub](#imagem-no-dockerhub)
 
 ---
 
-# SDPP_AV3_2 - QuizVerse
+# SDPP_AV3_2 - Sistema de Jogos Distribuído (SJD)
 
 ---
 
@@ -30,7 +29,7 @@
 ---
 ## Visão Geral
 
-O **QuizVerse** é uma aplicação web distribuída para gerenciamento de quizzes educacionais em escolas. Cada "servidor" representa uma disciplina (ex: Matemática, História), permitindo que professores cadastrem perguntas e alunos respondam, acumulando pontos conforme o desempenho. O sistema foi modelado com princípios de arquitetura distribuída, orientação a objetos e SOLID, utilizando o padrão Model-View-Controller (MVC). Usuários podem se cadastrar, fazer login/logout, acessar servidores (matérias), responder perguntas e acompanhar sua pontuação, com persistência dos dados em MongoDB.
+O **Sistema de Jogos Distribuído (SJD)** é uma aplicação web distribuída para gerenciamento de quizzes educacionais em escolas. Cada "servidor" representa uma disciplina (ex: Matemática, História), permitindo que professores cadastrem perguntas e alunos respondam, acumulando pontos conforme o desempenho. O sistema foi modelado com princípios de arquitetura distribuída, orientação a objetos e SOLID, utilizando o padrão Model-View-Controller (MVC). Usuários podem se cadastrar, fazer login/logout, acessar servidores (matérias), responder perguntas e acompanhar sua pontuação, com persistência dos dados em MongoDB.
 
 ---
 
@@ -195,7 +194,3 @@ docker-compose.yml         # Orquestração dos serviços (FastAPI + MongoDB)
 - **Docker Desktop**: Ambiente Docker local para Windows/Mac.
 - **MongoDB Compass**: Interface gráfica para visualizar e manipular dados do MongoDB.
 - **Python 3.11+**: Linguagem de programação principal do projeto.
-
-## Imagem no DockerHub
-
-```docker build test2313123/quizverse```
