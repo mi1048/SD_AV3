@@ -20,13 +20,15 @@
 ---
 
 **Disciplina:** Sistemas Distribuídos e Programação Paralela  
-**Docente:** Edson Mota da Cruz 
+**Docente:** Edson Mota da Cruz
 **Data:** 15/06/2025  
-**Equipe:**  
+**Equipe:**
+
 - Rodrigo Dias Sarno
-- Eric Menezes  
+- Eric Menezes
 
 ---
+
 ## Visão Geral
 
 O **Sistema de Jogos Distribuído (SJD)** é uma aplicação web distribuída para gerenciamento de quizzes educacionais em escolas. Cada "servidor" representa uma disciplina (ex: Matemática, História), permitindo que professores cadastrem perguntas e alunos respondam, acumulando pontos conforme o desempenho. O sistema foi modelado com princípios de arquitetura distribuída, orientação a objetos e SOLID, utilizando o padrão Model-View-Controller (MVC). Usuários podem se cadastrar, fazer login/logout, acessar servidores (matérias), responder perguntas e acompanhar sua pontuação, com persistência dos dados em MongoDB.
@@ -46,6 +48,7 @@ O **Sistema de Jogos Distribuído (SJD)** é uma aplicação web distribuída pa
 ## Recorte do Projeto
 
 Neste recorte, o sistema foi pensado como uma plataforma de quizzes para escolas, onde:
+
 - **Cada servidor representa uma disciplina** (ex: Matemática, História, Ciências).
 - **Professores** podem cadastrar perguntas para suas matérias.
 - **Alunos** podem se cadastrar, escolher uma disciplina, responder perguntas e acumular pontos.
@@ -56,6 +59,7 @@ Neste recorte, o sistema foi pensado como uma plataforma de quizzes para escolas
 ## Arquitetura Distribuída
 
 O sistema é composto por:
+
 - **Serviço FastAPI**: expõe a API RESTful, responsável por toda a lógica de negócio.
 - **Serviço MongoDB**: banco de dados NoSQL para persistência dos dados.
 
@@ -85,6 +89,7 @@ app/
 Dockerfile                 # Imagem Docker do serviço FastAPI
 docker-compose.yml         # Orquestração dos serviços (FastAPI + MongoDB)
 ```
+
 - **Separação clara** entre camadas de controle, serviço e modelo.
 - **Princípios SOLID** aplicados na organização dos serviços e controllers.
 
@@ -93,27 +98,32 @@ docker-compose.yml         # Orquestração dos serviços (FastAPI + MongoDB)
 ## Como Executar
 
 1. **Clone o repositório:**
+
    ```sh
    git clone <URL_DO_REPOSITORIO>
    cd SDPP_AV3_2
    ```
 
 2. **Suba os containers:**
+
    ```sh
    docker-compose up --build
    ```
 
 3. **Acesse a API:**
+
    - [http://localhost:8000/docs](http://localhost:8000/docs) (Swagger UI)
    - [http://localhost:8000/redoc](http://localhost:8000/redoc) (ReDoc)
 
 4. **Utilize os métodos HTTP POST e GET:**
+
    - Utilize os comandos POST para criar os objetos e para enviar as suas respostas de acordo com a estrutura;
    - Utilize os comandos GET para receber informações em relação aos servidores que existem e as perguntas presentes em cada servidor;
    - Não foram criados métodos GET para os usuários para mantêr o sigilo deles.
 
 5. **Verifique tudo através do MongoDB Compass:**
    A interface do MongoDB Compass é perfeita para visualizar o manuseio dos métodos POST e GET feitos no FastAPI, verificando o povoamento do banco em tempo real (utilize sempre o "Refresh" para verificar as atualizações)
+
 ---
 
 ## Banco de Dados
@@ -138,6 +148,7 @@ docker-compose.yml         # Orquestração dos serviços (FastAPI + MongoDB)
 `POST /api/perguntas/`
 
 **Exemplo de corpo da requisição (JSON):**
+
 ```json
 {
   "servidor_id": "ID_DO_SERVIDOR",
@@ -148,9 +159,10 @@ docker-compose.yml         # Orquestração dos serviços (FastAPI + MongoDB)
     "ALTERNATIVA_3",
     "ALTERNATIVA_4"
   ],
-  "resposta_correta": 0 
+  "resposta_correta": 0
 }
 ```
+
 - `servidor_id`: O ID do servidor onde a pergunta será cadastrada (você pode obter usando o endpoint GET `/api/servidores/`) ou através do MongoDB Compass.
 - `alternativas`: Lista de alternativas para a pergunta (mínimo de 1, máximo de 4).
 - `resposta_correta`: Índice da alternativa correta (0 a 3).
@@ -163,6 +175,7 @@ docker-compose.yml         # Orquestração dos serviços (FastAPI + MongoDB)
 `POST /api/respostas/`
 
 **Exemplo de corpo da requisição (JSON):**
+
 ```json
 {
   "usuario_nome": "nome_do_usuario",
@@ -173,6 +186,7 @@ docker-compose.yml         # Orquestração dos serviços (FastAPI + MongoDB)
   }
 }
 ```
+
 - `usuario_nome`: Nome do usuário criado que está respondendo.
 - `servidor_id`: ID do servidor.
 - `respostas`: Um dicionário onde a chave é o ID da pergunta e o valor é o índice da alternativa escolhida.
@@ -194,3 +208,7 @@ docker-compose.yml         # Orquestração dos serviços (FastAPI + MongoDB)
 - **Docker Desktop**: Ambiente Docker local para Windows/Mac.
 - **MongoDB Compass**: Interface gráfica para visualizar e manipular dados do MongoDB.
 - **Python 3.11+**: Linguagem de programação principal do projeto.
+
+## Imagem DockerHub
+
+`docker build test2313123/quizverse`
