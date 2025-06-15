@@ -211,4 +211,4 @@ docker-compose.yml         # Orquestração dos serviços (FastAPI + MongoDB)
 
 ## Imagem DockerHub
 
-`docker build test2313123/quizverse`
+```docker pull test2313123/quizverse```
