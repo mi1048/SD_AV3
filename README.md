@@ -15,7 +15,7 @@
 
 ---
 
-# SDPP_AV3_2 - Sistema de Jogos Distribuído (SJD)
+# SDPP_AV3_2 - QuizVerse
 
 ---
 
@@ -31,7 +31,7 @@
 
 ## Visão Geral
 
-O **Sistema de Jogos Distribuído (SJD)** é uma aplicação web distribuída para gerenciamento de quizzes educacionais em escolas. Cada "servidor" representa uma disciplina (ex: Matemática, História), permitindo que professores cadastrem perguntas e alunos respondam, acumulando pontos conforme o desempenho. O sistema foi modelado com princípios de arquitetura distribuída, orientação a objetos e SOLID, utilizando o padrão Model-View-Controller (MVC). Usuários podem se cadastrar, fazer login/logout, acessar servidores (matérias), responder perguntas e acompanhar sua pontuação, com persistência dos dados em MongoDB.
+O **QuizVerse** é uma aplicação web distribuída para gerenciamento de quizzes educacionais em escolas. Cada "servidor" representa uma disciplina (ex: Matemática, História), permitindo que professores cadastrem perguntas e alunos respondam, acumulando pontos conforme o desempenho. O sistema foi modelado com princípios de arquitetura distribuída, orientação a objetos e SOLID, utilizando o padrão Model-View-Controller (MVC). Usuários podem se cadastrar, fazer login/logout, acessar servidores (matérias), responder perguntas e acompanhar sua pontuação, com persistência dos dados em MongoDB.
 
 ---
 
