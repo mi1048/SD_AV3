@@ -11,7 +11,7 @@ services:
       - mongo_data:/data/db  # Volume nomeado p/ persistência dos dados
 
   fastapi:
-    image: test2313123/quizverse
+    image: test2313123/quizverse:2.0
     container_name: fastapi
     depends_on:
       - mongo
