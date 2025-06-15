@@ -197,3 +197,5 @@ docker-compose.yml         # Orquestração dos serviços (FastAPI + MongoDB)
 - **Python 3.11+**: Linguagem de programação principal do projeto.
 
 ## Imagem no DockerHub
+
+docker build test2313123/quizverse
