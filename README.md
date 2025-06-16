@@ -21,7 +21,7 @@
 ---
 
 **Disciplina:** Sistemas Distribuídos e Programação Paralela  
-**Docente:** Edson Mota da Cruz
+**Docente:** Edson Mota da Cruz  
 **Data:** 15/06/2025  
 **Equipe:**
 
@@ -87,12 +87,23 @@ app/
 ├── models/                # Modelos Pydantic e acesso às coleções do MongoDB
 ├── services/              # Lógica de negócio (serviços)
 ├── requisitos.txt         # Dependências Python
-Dockerfile                 # Imagem Docker do serviço FastAPI
 docker-compose.yml         # Orquestração dos serviços (FastAPI + MongoDB)
 ```
 
 - **Separação clara** entre camadas de controle, serviço e modelo.
 - **Princípios SOLID** aplicados na organização dos serviços e controllers.
+
+### Atualizações recentes
+
+- **Controllers**: Todos os endpoints estão organizados em controllers separados para usuários, servidores, perguntas e respostas.
+- **Services**: A lógica de negócio está centralizada em classes de serviço para cada entidade.
+- **Models**: Os modelos Pydantic representam os dados e fornecem métodos para acessar as coleções do MongoDB.
+- **Banco de dados**: A conexão com o MongoDB é feita via `pymongo`, e a URI é configurável por variável de ambiente.
+- **Endpoints**:
+  - Usuários: cadastro, login, logout.
+  - Servidores: criação e listagem.
+  - Perguntas: criação e listagem por servidor.
+  - Respostas: envio de respostas e atualização de pontuação.
 
 ---
 
@@ -131,6 +142,7 @@ docker-compose.yml         # Orquestração dos serviços (FastAPI + MongoDB)
 
 - MongoDB roda em container próprio, com volume nomeado para a persistência dos dados.
 - Os dados não são perdidos entre reinicializações, exceto se o volume for removido manualmente.
+- A URI de conexão é configurada via variável de ambiente `MONGO_URI` no serviço FastAPI.
 
 ---
 
@@ -138,10 +150,60 @@ docker-compose.yml         # Orquestração dos serviços (FastAPI + MongoDB)
 
 - Todos os serviços são conteinerizados.
 - Basta rodar `docker-compose up --build` para iniciar o sistema completo.
+- O serviço FastAPI depende do MongoDB e aguarda a inicialização do banco antes de subir.
 
 ---
 
 ## Exemplos de Uso da API
+
+### Criar Usuário
+
+**Endpoint:**  
+`POST /api/usuarios/`
+
+**Parâmetros (form):**
+- `nome`: string
+- `senha`: string
+
+---
+
+### Login
+
+**Endpoint:**  
+`POST /api/usuarios/login`
+
+**Parâmetros (form):**
+- `nome`: string
+- `senha`: string
+
+---
+
+### Logout
+
+**Endpoint:**  
+`POST /api/usuarios/logout`
+
+**Parâmetros (form):**
+- `nome`: string
+
+---
+
+### Criar Servidor
+
+**Endpoint:**  
+`POST /api/servidores/`
+
+**Parâmetros (form):**
+- `nome`: string
+
+---
+
+### Listar Servidores
+
+**Endpoint:**  
+`GET /api/servidores/`
+
+---
 
 ### Criar Pergunta
 
@@ -164,9 +226,16 @@ docker-compose.yml         # Orquestração dos serviços (FastAPI + MongoDB)
 }
 ```
 
-- `servidor_id`: O ID do servidor onde a pergunta será cadastrada (você pode obter usando o endpoint GET `/api/servidores/`) ou através do MongoDB Compass.
-- `alternativas`: Lista de alternativas para a pergunta (mínimo de 1, máximo de 4).
+- `servidor_id`: O ID do servidor onde a pergunta será cadastrada (você pode obter usando o endpoint GET `/api/servidores/`).
+- `alternativas`: Lista de alternativas para a pergunta (exatamente 4).
 - `resposta_correta`: Índice da alternativa correta (0 a 3).
+
+---
+
+### Listar Perguntas de um Servidor
+
+**Endpoint:**  
+`GET /api/perguntas/{servidor_id}`
 
 ---
 
@@ -204,7 +273,7 @@ docker-compose.yml         # Orquestração dos serviços (FastAPI + MongoDB)
 ## Ferramentas Utilizadas
 
 - **FastAPI**: Framework web para APIs rápidas e modernas.
-- **MongoDB**: Banco de dados NoSQL para persistência dos dados.
+- **MongoDB**: Banco de dados NoSQL para persistência dos dados (instalar versão 8.0).
 - **Docker & Docker Compose**: Conteinerização e orquestração dos serviços.
 - **Docker Desktop**: Ambiente Docker local para Windows/Mac.
 - **MongoDB Compass**: Interface gráfica para visualizar e manipular dados do MongoDB.
